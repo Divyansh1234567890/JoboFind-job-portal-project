@@ -12,6 +12,7 @@ const Login = ()=>{
   const handleSubmit = async (e)=>{
     e.preventDefault();
     setUser(true);
+    //navigate to home page after login
     navigate('/');
   }
   return(

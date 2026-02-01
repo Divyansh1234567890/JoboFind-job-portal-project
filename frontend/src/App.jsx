@@ -10,6 +10,8 @@ import Navbar from './components/NavBar'
 import Footer from './components/Footer'
 import { AppContext } from './context/AppContext'
 import { Toaster } from 'react-hot-toast'
+import Applications from './pages/user/Applications'
+import Profile from './pages/user/Profile'
 const App = () => {
   const adminPath = useLocation().pathname.includes('admin');
   const recruiterPath = useLocation().pathname.includes('recruiter');
@@ -25,6 +27,8 @@ const App = () => {
       <Route path='/jobDetails/:id' element={<JobDetails/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<Signup/>}/>
+      <Route path='/Applications' element={<Applications/>}/>
+      <Route path='/Profile' element={<Profile/>}/>
     </Routes>
     {adminPath || recruiterPath ?null : <Footer/>}
     <Toaster/>

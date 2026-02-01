@@ -12,6 +12,12 @@ import { AppContext } from './context/AppContext'
 import { Toaster } from 'react-hot-toast'
 import Applications from './pages/user/Applications'
 import Profile from './pages/user/Profile'
+import RecruiterLayout from './pages/recruiter/RecruiterLayout'
+import CompaniesList from './pages/recruiter/CompaniesList'
+import AddCompany from './pages/recruiter/AddCompany'
+import PostJob from './pages/recruiter/PostJob'
+import JobsList from './pages/recruiter/JobsList'
+import Applicants from './pages/recruiter/Applicants'
 const App = () => {
   const adminPath = useLocation().pathname.includes('admin');
   const recruiterPath = useLocation().pathname.includes('recruiter');
@@ -27,8 +33,17 @@ const App = () => {
       <Route path='/jobDetails/:id' element={<JobDetails/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<Signup/>}/>
+      {/* user routes */}
       <Route path='/Applications' element={<Applications/>}/>
       <Route path='/Profile' element={<Profile/>}/>
+      {/* recruiter routes  */}
+      <Route path='/recruiter' element={<RecruiterLayout/>}>
+      <Route index element={<CompaniesList/>}/>
+      <Route path='AddCompany' element={<AddCompany/>}/>
+      <Route path='PostJob' element={<PostJob/>}/>
+      <Route path='JobsList' element={<JobsList/>}/>
+      <Route path='Applicants' element={<Applicants/>}/>
+      </Route>
     </Routes>
     {adminPath || recruiterPath ?null : <Footer/>}
     <Toaster/>

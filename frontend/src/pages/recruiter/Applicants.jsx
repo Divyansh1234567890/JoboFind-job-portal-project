@@ -1,44 +1,78 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../../context/AppContext'
 
 const Applicants = () => {
+  const {applicantsData} = useContext(AppContext)
   return (
-     <div className='max-w-4xl w-full px-6 mx-auto mt-10 bg-white shadow rounded-lg'>
-      <div className='flex items-center justify-between mb-6'>
-        <h2 className='text-2xl font-medium text-gray-800'>Company List</h2>
-        <button onClick={()=>navigate('/recruiter/AddCompany')} className='bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer'>
-        Add Company
-        </button>
-      </div>
-      <table className='w-full border border-gray-300 rounded overflow-hidden'>
-      <thead className='bg-gray-100'>
-        <tr>
-          <th className='text-left p-3 border-b'>Logo</th>
-          <th className='text-left p-3 border-b'>Name</th>
-          <th className='text-left p-3 border-b'>About</th>
-          <th className='text-left p-3 border-b'>Delete</th>
-        </tr>
-      </thead>
-      <tbody className='divide-y divide-gray-300'>
+      <div className='py-16 px-4 max-w-7xl mx-auto bg-linear-to-b from-purple-200/70'>
+      <h1 className='text-2xl md:text-5xl font-medium text-gray-800 mb-8'>All Jobs</h1>
       {
-        companiesData.map((company)=>(
-          <tr key={company._id} className='hover:bg-gray-50'>
-            <td className='p-3 border-b'>
-            <img src={company.logo} alt="company-logo" className='w-16 h-16 object-cover border'/>
-            </td>
-            <td className='p-3 border-b'>
-              {company.name}
-            </td>
-            <td className='p-3 border-b'>
-              {company.about}
-            </td>
-            <td className='p-3 border-b'>
-              <button onClick={()=>handleDelete(company._id)} className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 cursor-pointer'>Delete</button>
-            </td>
-          </tr>
-        ))
+        !applicantsData || applicantsData.length===0?(
+          <div className='text-center py-12'>
+            <div className='text-gray-400 text-lg'>No Applicants Found</div>
+            
+          </div>
+        ): <div className='bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden'>
+          <div className='overflow-x-auto'>
+          <table className='min-w-full divide-y divide-gray-200'>
+            <thead className='bg-gray-50'>
+              <tr>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Name</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Email</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Phone no</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Applied Jobs</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Applied date</th>
+                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Resume</th>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>status</th>
+              </tr>
+            </thead>
+            <tbody className='bg-white divide-y divide-gray-200'>
+              {
+                applicantsData.map((item,index)=>(
+                  <tr className='hover:bg-gray-50 transition-colors hover:cursor-pointer'>
+                    <td className='px-6 py-4 whitespace-nowrap'>
+                      <div className='text-sm font-medium text-gray-900'>
+                        {item.name}
+                        </div>
+                    </td>
+                    <td className='px-6 py-4 whitespace-nowrap'>
+                      <div className='text-sm font-medium text-gray-900'>
+                        {item.email}
+                        </div>
+                    </td>
+                    <td className='px-6 py-4 whitespace-nowrap'>
+                      <div className='text-sm font-medium text-gray-900'>
+                        {item.phone}
+                        </div>
+                    </td>
+                     <td className='px-6 py-4 whitespace-nowrap'>
+                      <div className='text-sm font-medium text-gray-900'>
+                        {item.appliedJob}
+                        </div>
+                    </td>
+                     <td className='px-6 py-4 whitespace-nowrap'>
+                      <div className='text-sm font-medium text-gray-900'>
+                        {item.applicationDate}
+                        </div>
+                    </td>
+                    <td className='px-6 py-4 whitespace-nowrap'>
+                      <div className='text-sm font-medium text-gray-900'>
+                        {item.resume}
+                        </div>
+                    </td>
+                     <td className='px-6 py-4 whitespace-nowrap'>
+                      <div className='text-sm font-medium text-gray-900'>
+                        {item.status||"Pending"}
+                        </div>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          </div>
+        </div>
       }
-      </tbody>
-      </table>
     </div>
   )
 }

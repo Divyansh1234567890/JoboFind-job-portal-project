@@ -18,6 +18,12 @@ import AddCompany from './pages/recruiter/AddCompany'
 import PostJob from './pages/recruiter/PostJob'
 import JobsList from './pages/recruiter/JobsList'
 import Applicants from './pages/recruiter/Applicants'
+import AdminLayout from './pages/admin/AdminLayout'
+import CategoriesList from './pages/admin/CategoriesList'
+import AddCatogery from './pages/admin/AddCatogery'
+import AllApplications from './pages/admin/AllApplications'
+import AllCompanies from './pages/admin/AllCompanies'
+import AllUsers from './pages/admin/AllUsers'
 const App = () => {
   const adminPath = useLocation().pathname.includes('admin');
   const recruiterPath = useLocation().pathname.includes('recruiter');
@@ -36,6 +42,7 @@ const App = () => {
       {/* user routes */}
       <Route path='/Applications' element={<Applications/>}/>
       <Route path='/Profile' element={<Profile/>}/>
+
       {/* recruiter routes  */}
       <Route path='/recruiter' element={<RecruiterLayout/>}>
       <Route index element={<CompaniesList/>}/>
@@ -43,6 +50,15 @@ const App = () => {
       <Route path='PostJob' element={<PostJob/>}/>
       <Route path='JobsList' element={<JobsList/>}/>
       <Route path='Applicants' element={<Applicants/>}/>
+      </Route>
+
+      {/* admin routes */}
+      <Route path='/admin' element={<AdminLayout/>}>
+      <Route index element={<CategoriesList/>}/>
+      <Route path='AddCategory' element={<AddCatogery/>}/>
+      <Route path='AllUsers' element={<AllUsers/>}/>
+      <Route path='AllCompanies' element={<AllCompanies/>}/>
+      <Route path='AllApplications' element={<AllApplications/>}/>
       </Route>
     </Routes>
     {adminPath || recruiterPath ?null : <Footer/>}

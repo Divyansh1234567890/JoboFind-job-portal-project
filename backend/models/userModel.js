@@ -1,0 +1,49 @@
+import mongoose from "mongoose";
+const userSchema = mongoose.Schema({
+  name:{
+    type:String,
+    required:true
+  },
+  email:{
+    type:String,
+    required:true,
+    unique:true
+  },
+  password:{
+    type:String,
+    required:true,
+  },
+  role:{
+    type:String,
+    required:true,
+    enum:["student","recruiter","admin"]
+  },
+  image:{
+    type:String,
+    default:""
+  },
+  location:{
+    type:String,
+    default:""
+  },
+  bio:{
+    type:String,
+    default:""
+  },
+  phone:{
+    type:String,
+    default:""
+  },
+  resume:{
+    type:String,
+    default:""
+  },
+  location:{
+    type:String,
+    default:""
+  },
+},
+{
+  timestamps:true
+}
+)

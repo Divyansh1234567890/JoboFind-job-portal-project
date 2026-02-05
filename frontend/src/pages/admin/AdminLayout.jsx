@@ -5,7 +5,7 @@ import { AppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
 
 const RecruiterLayout = () => {
-  const {navigate,setRecruiter,setAdmin} = useContext(AppContext);
+  const {navigate,setRecruiter,setAdmin,axios} = useContext(AppContext);
     const sidebarLinks = [
         {name:"Categories",path:"/admin"},
         { name: "Add-category", path: "/admin/AddCategory" },
@@ -14,6 +14,19 @@ const RecruiterLayout = () => {
         {name:"All-users",path:"/admin/AllUsers"},
         {name:"Applications",path:"/admin/AllApplications"}
     ];
+    const logout = async()=>{
+            try{
+                const {data} = await axios.post('http://localhost:4000/auth/logout',{withCredentials:true});
+                if(data.success){
+                    setAdmin(false);
+                    navigate('/');
+                    toast.success(data.message);
+                }
+            }
+            catch(error){
+                toast.error(error.response.data.message);
+            }
+        }
     return (
         <>
             <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white transition-all duration-300">
@@ -22,11 +35,7 @@ const RecruiterLayout = () => {
                </Link>
                 <div className="flex items-center gap-5 text-gray-500">
                     <p>Hi! Admin</p>
-                    <button className='border rounded-full text-sm px-4 py-1 cursor-pointer' onClick={()=>(
-                      setAdmin(false),
-                      navigate('/'),
-                      toast.success('Admin logout successfully')
-                    )}>Logout</button>
+                    <button className='border rounded-full text-sm px-4 py-1 cursor-pointer' onClick={logout}>Logout</button>
                 </div>
             </div>
             <div className="flex">

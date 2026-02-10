@@ -1,8 +1,24 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast';
 
 const CategoriesList = () => {
-  const {categoriesData} = useContext(AppContext);
+  const {categoriesData,setCategoriesData,axios} = useContext(AppContext);
+    const handleDelete = async (id)=>{
+      try{
+    const {data} = await axios.delete(`http://localhost:4000/category/delete/${id}`);
+    if(data.success){
+      const filteredCategories = categoriesData.filter((category)=>category._id!=id);
+      setCategoriesData(filteredCategories);
+      toast.success(data.message);
+    }
+    else{
+      toast.error(error.message);
+    }
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
   return (
     <div className='p-6 bg-white rounded shadow'>
       <h2 className='text-2xl font-semibold mb-6 text-gray-800'>
@@ -23,13 +39,13 @@ const CategoriesList = () => {
               categoriesData.map((category)=>(
                 <tr key={category._id} className='hover:bg-gray-50'>
                   <td className='py-3 px-4 border-b'>
-                    <img src={category.icon} alt="categoryIcon" className='w-12 h-12 rounded object-cover border'/>
+                    <img src={`http://localhost:4000/uploads/${category.logo}`} alt="categoryIcon" className='w-12 h-12 rounded object-cover border'/>
                   </td>
                   <td>
                     <p className='py-3 px-4  font-medium'>{category.name}</p>
                   </td>
                   <td className='py-3 px-4'>
-                    <button className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 active:scale-95 cursor-pointer'>
+                    <button onClick={()=>handleDelete(category._id)} className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 active:scale-95 cursor-pointer'>
                       Delete
                     </button>
                   </td>

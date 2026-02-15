@@ -15,14 +15,10 @@ const userSchema = mongoose.Schema({
   },
   role:{
     type:String,
-    required:true,
-    enum:["student","recruiter","admin"]
+    enum:["student","recruiter","admin"],
+    default:"student"
   },
   image:{
-    type:String,
-    default:""
-  },
-  location:{
     type:String,
     default:""
   },
@@ -41,6 +37,18 @@ const userSchema = mongoose.Schema({
   location:{
     type:String,
     default:""
+  },
+  education:{
+    type:String,
+    default:"",
+  },
+  experience:{
+    type:String,
+    default:"",
+  },
+  skills:{
+    type:String,
+    default:"",
   },
 },
 {

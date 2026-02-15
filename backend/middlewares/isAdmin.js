@@ -16,4 +16,4 @@ export const isAdmin = (req,res,next)=>{
   catch(error){
     return res.json({success:false,message:"internal server error"});
   }
-}
+};

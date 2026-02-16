@@ -9,7 +9,7 @@ import financeIcon from './financeIcon.png'
 import graphicIcon from './graphicIcon.png'
 import musicIcon from './musicIcon.png'
 import videoIcon from './videoIcon.png'
-import webDevelopMentIcon from './webDevelopMentIcon.png'
+import webDevelopmentIcon from "./webDevelopmentIcon.png";
 import healthCareIcon from './healthCareIcon.png'
 import dataScienceIcon from './dataScienceIcon.png'
 import facebook_icon from './metaIcon.png'
@@ -118,7 +118,7 @@ export const categories = [
   { _id: 3, name: "Graphic Design", icon: graphicIcon, positions: "20" },
   { _id: 4, name: "Music", icon: musicIcon, positions: "70" },
   { _id: 5, name: "Video", icon: videoIcon, positions: "40" },
-  { _id: 6, name: "Web Development", icon: webDevelopMentIcon, positions: "100" },
+  { _id: 6, name: "Web Development", icon: webDevelopmentIcon, positions: "100" },
   { _id: 7, name: "Health & Care", icon: healthCareIcon, positions: "48" },
   { _id: 8, name: "Data Science", icon: dataScienceIcon, positions: "103" },
 ];

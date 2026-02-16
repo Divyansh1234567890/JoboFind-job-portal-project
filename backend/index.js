@@ -13,7 +13,11 @@ import mongoose from 'mongoose';
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app = express();
-const allowedOrigins = ['http://localhost:5173','https://jobofind-job-portal-project.vercel.app'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://jobo-find-job-portal-project.vercel.app'
+];
+
 app.use(express.json());
 app.use(
   cors({

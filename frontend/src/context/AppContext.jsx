@@ -7,7 +7,7 @@ import { applicants } from "../assets/asset";
 import toast from "react-hot-toast";
 import axios from 'axios';
 axios.defaults.withCredentials=true;
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 console.log("BASE_URL:", BASE_URL);
 export const AppContext = createContext();
 const AppContextProvider = ({children})=>{

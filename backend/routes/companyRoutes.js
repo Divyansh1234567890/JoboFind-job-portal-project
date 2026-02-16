@@ -1,0 +1,11 @@
+import express from 'express';
+import { addCompany, deleteCompany, getAllCompanies, getEmployerCompany } from '../controllers/companyController.js';
+import { isAuthenticated} from '../middlewares/isAuthenticated.js';
+import { isAdmin } from '../middlewares/isAdmin.js';
+import { upload } from '../middlewares/multer.js';
+const companyRouter = express.Router();
+companyRouter.post('/add',isAuthenticated,upload.single('logo'),addCompany);
+companyRouter.get('/getEmployerCompany',isAuthenticated,getEmployerCompany);
+companyRouter.get('/allCompanies',isAuthenticated,isAdmin,getAllCompanies);
+companyRouter.delete('/delete/:id',isAuthenticated,deleteCompany);
+export default companyRouter;

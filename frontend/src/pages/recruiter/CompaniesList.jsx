@@ -1,12 +1,25 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AppContext } from '../../context/AppContext'
 
 const CompaniesList = () => {
-  const {companiesData,setCompaniesData,navigate} = useContext(AppContext);
+  const {companiesData,setCompaniesData,navigate,axios} = useContext(AppContext);
   const handleDelete = (id)=>{
     const updatedCompanies = companiesData.filter((company)=>company._id!=id);
     setCompaniesData(updatedCompanies);
   }
+  const fetchCompanies = async ()=>{
+    try {
+      const {data} = await axios.get('http://localhost:4000/company/getEmployerCompany');
+      if(data.success){
+        setCompaniesData(data.companies);
+      }
+    } catch (error) {
+      console.log("failed to fetch companies list");
+    }
+  }
+  useEffect(()=>{
+    fetchCompanies();
+  },[]);
   return (
     <div className='max-w-4xl w-full px-6 mx-auto mt-10 bg-white shadow rounded-lg'>
       <div className='flex items-center justify-between mb-6'>
@@ -29,7 +42,7 @@ const CompaniesList = () => {
         companiesData.map((company)=>(
           <tr key={company._id} className='hover:bg-gray-50'>
             <td className='p-3 border-b'>
-            <img src={company.logo} alt="company-logo" className='w-16 h-16 object-cover border'/>
+            <img src={`http://localhost:4000/uploads/${company.logo}`} alt="company-logo" className='w-16 h-16 object-cover border'/>
             </td>
             <td className='p-3 border-b'>
               {company.name}

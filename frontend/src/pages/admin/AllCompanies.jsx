@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 
 const AllCompanies = () => {
-  const {companiesData,setCompaniesData,navigate} = useContext(AppContext);
+  const {companiesData,setCompaniesData,navigate,} = useContext(AppContext);
   const handleDelete = (id)=>{
     const updatedCompanies = companiesData.filter((company)=>company._id!=id);
     setCompaniesData(updatedCompanies);
@@ -27,7 +27,7 @@ const AllCompanies = () => {
         companiesData.map((company)=>(
           <tr key={company._id} className='hover:bg-gray-50'>
             <td className='p-3 border-b'>
-            <img src={company.logo} alt="company-logo" className='w-16 h-16 object-cover border'/>
+            <img src={`http://localhost:4000/uploads/${company.logo}`} alt="company-logo" className='w-16 h-16 object-cover border'/>
             </td>
             <td className='p-3 border-b'>
               {company.name}

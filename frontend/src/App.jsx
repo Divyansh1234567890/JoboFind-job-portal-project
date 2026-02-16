@@ -24,6 +24,7 @@ import AddCatogery from './pages/admin/AddCatogery'
 import AllApplications from './pages/admin/AllApplications'
 import AllCompanies from './pages/admin/AllCompanies'
 import AllUsers from './pages/admin/AllUsers'
+import Jobs from './pages/admin/Jobs'
 const App = () => {
   const adminPath = useLocation().pathname.includes('admin');
   const recruiterPath = useLocation().pathname.includes('recruiter');
@@ -59,6 +60,7 @@ const App = () => {
       <Route path='AllUsers' element={<AllUsers/>}/>
       <Route path='AllCompanies' element={<AllCompanies/>}/>
       <Route path='AllApplications' element={<AllApplications/>}/>
+      <Route path='Jobs' element={<Jobs/>}/>
       </Route>
     </Routes>
     {adminPath || recruiterPath ?null : <Footer/>}

@@ -24,7 +24,7 @@ const Categories = () => {
           const colorClass = colors[index%colors.length];
           return(
           <div key={index} className={`w-[250px] h-[125px] flex justify-center items-center rounded-2xl shadow ${colorClass} flex-col`}>
-            <img src={item.icon} alt="" className='h-20'/>
+            <img src={`http://localhost:4000/uploads/${item.logo}`} alt="" className='h-20'/>
             <div>
               <h4 className="text-lg font-semibold">{item.name}</h4>
             </div>

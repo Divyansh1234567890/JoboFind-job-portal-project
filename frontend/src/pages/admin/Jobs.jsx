@@ -3,6 +3,7 @@ import { AppContext } from '../../context/AppContext'
 
 const Jobs = () => {
   const {navigate,jobsData} = useContext(AppContext);
+  console.log("JobsData:", jobsData);
   return (
     <div className='py-16 px-4 max-w-7xl mx-auto bg-linear-to-b from-purple-200/70'>
       <h1 className='text-2xl md:text-5xl font-medium text-gray-800 mb-8'>All Jobs</h1>
@@ -31,12 +32,12 @@ const Jobs = () => {
                   <tr className='hover:bg-gray-50 transition-colors hover:cursor-pointer' onClick={()=>navigate(`/JobDetails/${job._id}`)}>
                     <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        {job.title}
+                        {job.name}
                         </div>
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        {job.company}
+                        {job.company?.name}
                         </div>
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>

@@ -5,7 +5,7 @@ import { asset } from "../assets/asset";
 import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
-  const { navigate, setQuery, user, setUser } = useContext(AppContext);
+  const { navigate, setQuery, user, setUser ,axios} = useContext(AppContext);
 
   const [open, setOpen] = useState(false);        // mobile menu
   const [input, setInput] = useState("");
@@ -19,13 +19,19 @@ const Navbar = () => {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    setIsOpen(false);
-    navigate("/");
-    toast.success("Logout successfully");
-  };
-
+ const logout = async()=>{
+        try{
+            const {data} = await axios.post('http://localhost:4000/auth/logout');
+            if(data.success){
+                setUser(false);
+                navigate('/');
+                toast.success(data.message);
+            }
+        }
+        catch(error){
+            toast.error(error.response.data.message);
+        }
+    }
   return (
     <nav className="w-full bg-white border-b border-gray-300 sticky top-0 z-50 shadow-sm h-16">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-full">
@@ -127,7 +133,7 @@ const Navbar = () => {
           {user ? (
             <div className="relative">
               <img
-                src={asset.createUserIcon}
+                src={`http://localhost:4000/uploads/${user.image}` || asset.createUserIcon}
                 alt="user"
                 onClick={() => setIsOpen((prev) => !prev)}
                 className="w-10 h-10 rounded-full cursor-pointer border"

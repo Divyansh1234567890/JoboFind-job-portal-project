@@ -9,7 +9,7 @@ const AllJobs = ()=>{
       setQuery("");
     },[]);
   const filteredJobs = jobsData.filter((job)=>{
-    return job.title.toLowerCase().includes(query.toLowerCase());
+    return job.name?.toLowerCase().includes(query.toLowerCase());
   })
   filteredJobs.map((job,index)=>{
     return <JobDetails key={index} />

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast';
 
 const AddCompany = () => {
-  const {navigate} = useContext(AppContext);
+  const {navigate,axios} = useContext(AppContext);
   const [companiesData,setCompaniesData] = useState({
     name:"",
     about:"",
@@ -23,8 +24,22 @@ const AddCompany = () => {
   }
   const handleSubmit = async(e)=>{
     e.preventDefault();
-    console.log("companyData", companiesData);
-    navigate('/recruiter');
+    try {
+      const formPayLoad = new FormData();
+      formPayLoad.append("name",companiesData.name);
+      formPayLoad.append("about",companiesData.about);
+      formPayLoad.append("logo",companiesData.logo);
+      const {data} = await axios.post('http://localhost:4000/company/add',formPayLoad);
+      if(data.success){
+        toast.success(data.message);
+        navigate('/recruiter');
+      }
+      else{
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   }
   return ( 
     <div className='flex items-center max-w-4xl w-full mx-auto'>

@@ -25,7 +25,7 @@ const PopularVacancies = () => {
         vacancies.map((item,index)=>{
           const colorClass = colors[index%colors.length];
           return(
-            <Link>
+            <Link key={index}>
             <div key={index} className={`w-62.5 h-31.25 flex justify-center items-center rounded-2xl shadow ${colorClass}`}>
               <h3 className="text-lg font-semibold">{item.title}</h3>
             </div>

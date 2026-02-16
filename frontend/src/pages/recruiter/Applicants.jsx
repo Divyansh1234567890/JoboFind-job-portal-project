@@ -1,11 +1,48 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useEffect } from 'react'
 
 const Applicants = () => {
-  const {applicantsData} = useContext(AppContext)
+  const {axios} = useContext(AppContext)
+  const [applicantsData,setApplicantsData] = useState([]);
+  const fetchAllApplicants = async ()=>{
+    try {
+      const {data} = await axios.get('http://localhost:4000/application/employerJobApplicants');
+      console.log(data)
+      if(data.success){
+        setApplicantsData(data.applications);
+      }
+      else{
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+  useEffect(()=>{
+    fetchAllApplicants();
+  },[]);
+
+const handleStatusChange = async(id,status)=>{
+  try {
+    const {data} = await axios.put(`http://localhost:4000/application/updateStatus/${id}`,{status});
+    if(data.success){
+      fetchAllApplicants();
+      toast.success(data.message);
+    }
+    else{
+      toast.error(data.message);
+    }
+  } catch (error) {
+    toast.error(error.response.data.message);
+  }
+}
+
   return (
       <div className='py-16 px-4 max-w-7xl mx-auto bg-linear-to-b from-purple-200/70'>
-      <h1 className='text-2xl md:text-5xl font-medium text-gray-800 mb-8'>All Jobs</h1>
+      <h1 className='text-2xl md:text-5xl font-medium text-gray-800 mb-8'>All Applicants</h1>
       {
         !applicantsData || applicantsData.length===0?(
           <div className='text-center py-12'>
@@ -32,38 +69,44 @@ const Applicants = () => {
                   <tr className='hover:bg-gray-50 transition-colors hover:cursor-pointer'>
                     <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        {item.name}
+                        {item.applicant?.name}
                         </div>
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        {item.email}
+                        {item.applicant?.email}
                         </div>
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        {item.phone}
+                        {item.applicant.phone==""?"not mention":item.applicant.phone}
                         </div>
                     </td>
                      <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        {item.appliedJob}
+                        {item.job.description}
                         </div>
                     </td>
                      <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        {item.applicationDate}
+                        {new Date(item.createdAt).toLocaleDateString({
+                          year:"numeric",
+                          month:"long",
+                          day:"numeric"
+                        })}
                         </div>
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        {item.resume}
+                        <a href={`http://localhost:4000/uploads/${item.applicant.resume}`} target='_blank' rel='noopener noreferrer' className='text-blue-600'>Resume</a>
                         </div>
                     </td>
                      <td className='px-6 py-4 whitespace-nowrap'>
-                      <div className='text-sm font-medium text-gray-900'>
-                        {item.status||"Pending"}
-                        </div>
+                      <select className='text-xs font-semibold rounded-full px-2 py-1 bg-gray-100 text-gray-800 focus:outline:none' onChange={(e)=>handleStatusChange(item._id,e.target.value)}>
+                        <option value="pending">Pending</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="rejected">Rejected</option>
+                      </select>
                     </td>
                   </tr>
                 ))

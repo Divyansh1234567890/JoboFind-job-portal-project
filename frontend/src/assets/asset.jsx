@@ -262,3 +262,72 @@ export const jobs = [
     experience: "6 years",
   },
 ];
+export const companies = [
+  {
+    _id: 1,
+    name: "Tech Solutions Pvt. Ltd.",
+    logo: google_icon,
+    about:
+      "Tech Solutions is a leading provider of innovative software solutions for businesses worldwide.",
+  },
+  {
+    _id: 2,
+    name: "Innovatech Inc.",
+    logo: facebook_icon,
+    about:
+      "Innovatech specializes in cutting-edge AI and machine learning solutions for global clients.",
+  },
+];
+
+export const applicants = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "johndoe@example.com",
+    phone: "+1 234 567 890",
+    appliedJob: "Frontend Developer",
+    applicationDate: "2025-06-28",
+    resume: "https://example.com/resume/john_doe.pdf",
+    status: "Pending",
+  },
+  {
+    id: 2,
+    name: "Sarah Khan",
+    email: "sarahkhan@example.com",
+    phone: "+1 987 654 321",
+    appliedJob: "Backend Developer",
+    applicationDate: "2025-06-25",
+    resume: "https://example.com/resume/sarah_khan.pdf",
+    status: "Reviewed",
+  },
+  {
+    id: 3,
+    name: "Ali Hassan",
+    email: "alihassan@example.com",
+    phone: "+92 300 1234567",
+    appliedJob: "UI/UX Designer",
+    applicationDate: "2025-06-30",
+    resume: "https://example.com/resume/ali_hassan.pdf",
+    status: "Shortlisted",
+  },
+  {
+    id: 4,
+    name: "Emma Watson",
+    email: "emmawatson@example.com",
+    phone: "+44 7700 900123",
+    appliedJob: "Full Stack Developer",
+    applicationDate: "2025-06-20",
+    resume: "https://example.com/resume/emma_watson.pdf",
+    status: "Pending",
+  },
+  {
+    id: 5,
+    name: "Bilal Ahmed",
+    email: "bilalahmed@example.com",
+    phone: "+92 333 6547890",
+    appliedJob: "Data Analyst",
+    applicationDate: "2025-06-22",
+    resume: "https://example.com/resume/bilal_ahmed.pdf",
+    status: "Rejected",
+  },
+];

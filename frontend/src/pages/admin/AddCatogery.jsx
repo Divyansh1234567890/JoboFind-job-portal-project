@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast';
 
 const AddCatogery = () => {
-  const {navigate} = useContext(AppContext);
+  const {navigate,axios} = useContext(AppContext);
   const [categoryData,setCategoryData] = useState({
     name:"",
     logo:null,
@@ -21,11 +22,37 @@ const AddCatogery = () => {
       setPreview(imageUrl)
     }
   };
-  const handleSubmit = async (e)=>{
-    e.preventDefault();
-    console.log("categoryData ",categoryData);
-    navigate('/admin');
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const formPayLoad = new FormData();
+    formPayLoad.append("name", categoryData.name);
+
+    if (categoryData.logo) {
+      formPayLoad.append("logo", categoryData.logo);
+    }
+
+    const { data } = await axios.post(
+      "http://localhost:4000/category/add",
+      formPayLoad,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },withCredentials:true
+      }
+    );
+
+    if (data.success) {
+      toast.success(data.message);
+      navigate("/admin");
+    } else {
+      toast.error(data.message);
+    }
+  } catch (error) {
+    toast.error(error.response?.data?.message || error.message);
   }
+};
+
   return (
     <div className='flex items-center max-w-4xl w-full mx-auto'>
      <form action="" onSubmit={handleSubmit} className='bg-white text-gray-500 max-w-96 mx-4 md:p-6 p-4 text-left text-s rounded shadow-[0px_0px_10px_0px] shadow-black/10'>

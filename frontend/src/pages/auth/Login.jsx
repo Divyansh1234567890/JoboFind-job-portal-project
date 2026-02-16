@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
-import { AppContext } from "../../context/AppContext";
+import { AppContext} from "../../context/AppContext";
+import toast from "react-hot-toast";
 const Login = ()=>{
-  const {navigate,setUser} = useContext(AppContext);
+  const {navigate,user,setUser,setAdmin,axios} = useContext(AppContext);
   const [loginFormData,setLoginFormData] = useState({
     email:"",
     password:""
@@ -11,10 +12,30 @@ const Login = ()=>{
   } 
   const handleSubmit = async (e)=>{
     e.preventDefault();
-    setUser(true);
-    //navigate to home page after login
-    navigate('/');
+    try{
+    const {data} = await axios.post('http://localhost:4000/auth/login',loginFormData,{ withCredentials: true });
+    if(data.success){
+      if(data.user.role=="recruiter"){
+        setUser(data.user);
+        toast.success(data.message);
+        navigate('/recruiter');
+      }
+      else if(data.user.role=="student"){
+        setUser(data.user);
+        toast.success(data.message);
+        navigate('/');
+      }
+      else{
+        setAdmin(true);
+        navigate('/admin');
+        toast.success(data.message);
+      }
+    }
   }
+  catch(error){
+    toast.error(error.response.data.message);
+  }
+  };
   return(
     <div className="flex items-center justify-center min-h-screen"> 
       <form onSubmit={handleSubmit} autoComplete="off" className="bg-white text-gray-500 max-w-87.5 mx-4 md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">

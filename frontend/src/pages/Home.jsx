@@ -1,6 +1,6 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import PopularVacancies from '../components/popularVacancies'
+import PopularVacancies from "../components/PopularVacancies";
 import HowJoboFindWorks from '../components/HowJoboFindWorks'
 import Categories from '../components/Categories'
 import Jobs from '../components/Jobs'

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 import { asset } from '../assets/asset'
 import { Link } from 'react-router-dom'
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const JobCards = ({jobs}) => {
   const {navigate,axios} = useContext(AppContext)
   
@@ -15,7 +16,7 @@ const JobCards = ({jobs}) => {
       </div>
 
       <div className='flex gap-4 items-center my-2'>
-        <img src={`http://localhost:4000/uploads/${jobs.company.logo}`} alt="company logo" className='w-10'/>
+        <img src={`${BASE_URL}/uploads/${jobs.company.logo}`} alt="company logo" className='w-10'/>
       <div className='flex flex-col md:flex-row justify-between items-center text-sm gap-3'>
         <h3>{jobs.company?.name}</h3>
         <h3>{jobs.location}</h3>

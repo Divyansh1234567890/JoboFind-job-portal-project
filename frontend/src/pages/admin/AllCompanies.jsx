@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const AllCompanies = () => {
   const {companiesData,setCompaniesData,navigate,} = useContext(AppContext);
   const handleDelete = (id)=>{
@@ -27,7 +27,7 @@ const AllCompanies = () => {
         companiesData.map((company)=>(
           <tr key={company._id} className='hover:bg-gray-50'>
             <td className='p-3 border-b'>
-            <img src={`http://localhost:4000/uploads/${company.logo}`} alt="company-logo" className='w-16 h-16 object-cover border'/>
+            <img src={`${BASE_URL}/uploads/${company.logo}`} alt="company-logo" className='w-16 h-16 object-cover border'/>
             </td>
             <td className='p-3 border-b'>
               {company.name}

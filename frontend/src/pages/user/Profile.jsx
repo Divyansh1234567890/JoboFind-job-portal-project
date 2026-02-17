@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext';
 import toast from 'react-hot-toast';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Profile = () => {
   const [formData,setFormData] = useState({
     name:"",
@@ -39,7 +39,7 @@ const Profile = () => {
       formPayLoad.append("about",formData.about);
       formPayLoad.append("resume",formData.resume);
       formPayLoad.append("profileImage",formData.profileImage);
-      const {data} = await axios.put(`http://localhost:4000/user/updateProfile/:${user._id}`,formPayLoad);
+      const {data} = await axios.put(`${BASE_URL}/user/updateProfile/:${user._id}`,formPayLoad);
       if(data.success){
         setUser(data.user);
         toast.success(data.message)
@@ -123,7 +123,7 @@ const Profile = () => {
         {
           formData.resume && (
             <div>
-              <a href={`http://localhost:4000/uploads/${formData.resume}`} className='text-blue-600' target='_blank'>view resume</a>
+              <a href={`${BASE_URL}/uploads/${formData.resume}`} className='text-blue-600' target='_blank'>view resume</a>
             </div>
           )
         }

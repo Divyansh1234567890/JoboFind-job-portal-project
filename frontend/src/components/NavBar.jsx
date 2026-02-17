@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { asset } from "../assets/asset";
 import { AppContext } from "../context/AppContext";
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Navbar = () => {
   const { navigate, setQuery, user, setUser ,axios} = useContext(AppContext);
 
@@ -21,7 +21,7 @@ const Navbar = () => {
 
  const logout = async()=>{
         try{
-            const {data} = await axios.post('http://localhost:4000/auth/logout');
+            const {data} = await axios.post(`${BASE_URL}/auth/logout`);
             if(data.success){
                 setUser(false);
                 navigate('/');
@@ -133,7 +133,7 @@ const Navbar = () => {
           {user ? (
             <div className="relative">
               <img
-                src={`http://localhost:4000/uploads/${user.image}` || asset.createUserIcon}
+                src={`${BASE_URL}/uploads/${user.image}` || asset.createUserIcon}
                 alt="user"
                 onClick={() => setIsOpen((prev) => !prev)}
                 className="w-10 h-10 rounded-full cursor-pointer border"

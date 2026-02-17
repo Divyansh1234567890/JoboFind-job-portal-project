@@ -3,13 +3,13 @@ import { AppContext } from '../../context/AppContext'
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useEffect } from 'react';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const JobsList = () => {
   const {navigate,user,axios} = useContext(AppContext);
   const [jobsData,setJobsData] = useState([]);
   const fetchMyJobs = async()=>{
     try {
-      const {data} = await axios.get('http://localhost:4000/job/employerJobs',{
+      const {data} = await axios.get(`${BASE_URL}/job/employerJobs`,{
     headers: {
       token: localStorage.getItem("token")
     }
@@ -27,7 +27,7 @@ const JobsList = () => {
 
   const deleteJob = async (id)=>{
     try {
-      const {data} = await axios.delete(`http://localhost:4000/job/delete/${id}`);
+      const {data} = await axios.delete(`${BASE_URL}/job/delete/${id}`);
       if(data.success){
         const filteredJobs = jobsData.filter((job)=>{
          return job._id!=id

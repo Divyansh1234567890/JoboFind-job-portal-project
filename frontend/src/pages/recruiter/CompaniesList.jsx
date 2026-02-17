@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { AppContext } from '../../context/AppContext'
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const CompaniesList = () => {
   const {companiesData,setCompaniesData,navigate,axios} = useContext(AppContext);
   const handleDelete = (id)=>{
@@ -9,7 +9,7 @@ const CompaniesList = () => {
   }
   const fetchCompanies = async ()=>{
     try {
-      const {data} = await axios.get('http://localhost:4000/company/getEmployerCompany');
+      const {data} = await axios.get(`${BASE_URL}/company/getEmployerCompany`);
       if(data.success){
         setCompaniesData(data.companies);
       }
@@ -42,7 +42,7 @@ const CompaniesList = () => {
         companiesData.map((company)=>(
           <tr key={company._id} className='hover:bg-gray-50'>
             <td className='p-3 border-b'>
-            <img src={`http://localhost:4000/uploads/${company.logo}`} alt="company-logo" className='w-16 h-16 object-cover border'/>
+            <img src={`${BASE_URL}/uploads/${company.logo}`} alt="company-logo" className='w-16 h-16 object-cover border'/>
             </td>
             <td className='p-3 border-b'>
               {company.name}

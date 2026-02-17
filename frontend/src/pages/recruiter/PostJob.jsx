@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext';
 import { companies } from '../../assets/asset';
 import {toast} from 'react-hot-toast';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const PostJob = () => {
   const {navigate,axios} = useContext(AppContext);
   const [companies,setCompanies] = useState([]);
@@ -23,7 +23,7 @@ const PostJob = () => {
   const [preview,setPreview] = useState(null);
   const fetchCompanies = async()=>{
     try {
-      const {data} = await axios.get('http://localhost:4000/company/getEmployerCompany');
+      const {data} = await axios.get(`${BASE_URL}/company/getEmployerCompany`);
       if(data.success){
         setCompanies(data.companies);
       }
@@ -49,7 +49,7 @@ const PostJob = () => {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     try {
-      const {data} = await axios.post('http://localhost:4000/job/post',jobData);
+      const {data} = await axios.post(`${BASE_URL}/job/post`,jobData);
       console.log(data)
     if(data.success){
       toast.success("job posted success");

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AppContext} from "../../context/AppContext";
 import toast from "react-hot-toast";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Login = ()=>{
   const {navigate,user,setUser,setAdmin,axios} = useContext(AppContext);
   const [loginFormData,setLoginFormData] = useState({
@@ -13,7 +14,7 @@ const Login = ()=>{
   const handleSubmit = async (e)=>{
     e.preventDefault();
     try{
-    const {data} = await axios.post('http://localhost:4000/auth/login',loginFormData,{ withCredentials: true });
+    const {data} = await axios.post(`${BASE_URL}/auth/login`,loginFormData,{ withCredentials: true });
     if(data.success){
       if(data.user.role=="recruiter"){
         setUser(data.user);

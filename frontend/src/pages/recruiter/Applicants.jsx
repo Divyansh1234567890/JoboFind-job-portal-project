@@ -3,13 +3,13 @@ import { AppContext } from '../../context/AppContext'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useEffect } from 'react'
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Applicants = () => {
   const {axios} = useContext(AppContext)
   const [applicantsData,setApplicantsData] = useState([]);
   const fetchAllApplicants = async ()=>{
     try {
-      const {data} = await axios.get('http://localhost:4000/application/employerJobApplicants');
+      const {data} = await axios.get(`${BASE_URL}/application/employerJobApplicants`);
       console.log(data)
       if(data.success){
         setApplicantsData(data.applications);
@@ -27,7 +27,7 @@ const Applicants = () => {
 
 const handleStatusChange = async(id,status)=>{
   try {
-    const {data} = await axios.put(`http://localhost:4000/application/updateStatus/${id}`,{status});
+    const {data} = await axios.put(`${BASE_URL}/application/updateStatus/${id}`,{status});
     if(data.success){
       fetchAllApplicants();
       toast.success(data.message);
@@ -98,7 +98,7 @@ const handleStatusChange = async(id,status)=>{
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        <a href={`http://localhost:4000/uploads/${item.applicant.resume}`} target='_blank' rel='noopener noreferrer' className='text-blue-600'>Resume</a>
+                        <a href={`${BASE_URL}/uploads/${item.applicant.resume}`} target='_blank' rel='noopener noreferrer' className='text-blue-600'>Resume</a>
                         </div>
                     </td>
                      <td className='px-6 py-4 whitespace-nowrap'>

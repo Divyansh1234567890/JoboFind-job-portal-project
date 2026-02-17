@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const AddCatogery = () => {
   const {navigate,axios} = useContext(AppContext);
   const [categoryData,setCategoryData] = useState({
@@ -33,7 +33,7 @@ const AddCatogery = () => {
     }
 
     const { data } = await axios.post(
-      "http://localhost:4000/category/add",
+      `${BASE_URL}/category/add`,
       formPayLoad,
       {
         headers: {

@@ -3,7 +3,7 @@ import { asset } from "../../assets/asset";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const RecruiterLayout = () => {
   const {navigate,setRecruiter,setAdmin,axios} = useContext(AppContext);
     const sidebarLinks = [
@@ -16,7 +16,7 @@ const RecruiterLayout = () => {
     ];
     const logout = async()=>{
             try{
-                const {data} = await axios.post('http://localhost:4000/auth/logout',{withCredentials:true});
+                const {data} = await axios.post(`${BASE_URL}/auth/logout`,{withCredentials:true});
                 if(data.success){
                     setAdmin(false);
                     navigate('/');

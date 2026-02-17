@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const AllApplications = () => {
   const {applicantsData} = useContext(AppContext)
   console.log(applicantsData)
@@ -48,7 +48,7 @@ const AllApplications = () => {
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap'>
                       <div className='text-sm font-medium text-gray-900'>
-                        <a href={`http://localhost:4000/uploads/${item.applicant.resume}`} target='_blank' rel='noopener noreferrer' className='text-blue-600'>Resume</a>
+                        <a href={`${BASE_URL}/uploads/${item.applicant.resume}`} target='_blank' rel='noopener noreferrer' className='text-blue-600'>Resume</a>
                         </div>
                     </td>
                      <td className='px-6 py-4 whitespace-nowrap'>

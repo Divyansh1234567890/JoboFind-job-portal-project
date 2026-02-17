@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Signup = () => {
   const { navigate, axios } = useContext(AppContext);
   const [file, setFile] = useState(null);
@@ -35,7 +36,7 @@ const Signup = () => {
       formPayLoad.append("role", signupFormData.role);
       formPayLoad.append("image", signupFormData.image);
       const { data } = await axios.post(
-        "http://localhost:4000/auth/signup",
+        `${BASE_URL}/auth/signup`,
         formPayLoad,
       );
       if (data.success) {

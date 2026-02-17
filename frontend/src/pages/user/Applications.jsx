@@ -3,13 +3,13 @@ import { AppContext } from '../../context/AppContext';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useEffect } from 'react';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Applications = () => {
   const {navigate,axios} = useContext(AppContext)
   const [jobsData,setJobsData] = useState([]);
   const fetchAppliedJobs = async()=>{
     try {
-      const {data} = await axios.get('http://localhost:4000/application/studentApplications');
+      const {data} = await axios.get(`${BASE_URL}/application/studentApplications`);
       console.log(data)
       if(data.success){
         setJobsData(data.applications);

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const AllUsers = () => {
   const [student, setStudent] = useState([]);
   const { axios } = useContext(AppContext);
@@ -9,7 +9,7 @@ const AllUsers = () => {
   const fetchAllStudents = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:4000/user/allStudents",
+        `${BASE_URL}/user/allStudents`,
         { withCredentials: true }
       );
 
@@ -57,7 +57,7 @@ const AllUsers = () => {
                   <td className="px-4 py-2">
                     {stu.image ? (
                       <img
-                        src={`http://localhost:4000/uploads/${stu.image}`}
+                        src={`${BASE_URL}/uploads/${stu.image}`}
                         alt="profile"
                         className="w-12 h-12 rounded-full object-cover"
                       />
@@ -80,7 +80,7 @@ const AllUsers = () => {
                   <td className="px-4 py-2">
                     {stu.resume ? (
                       <a
-                        href={`http://localhost:4000/uploads/${stu.resume}`}
+                        href={`${BASE_URL}/uploads/${stu.resume}`}
                         target="_blank"
                         rel="noreferrer"
                         className="text-blue-600 underline"

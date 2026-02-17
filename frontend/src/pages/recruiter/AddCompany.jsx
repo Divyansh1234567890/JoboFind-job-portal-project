@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const AddCompany = () => {
   const {navigate,axios} = useContext(AppContext);
   const [companiesData,setCompaniesData] = useState({
@@ -29,7 +29,7 @@ const AddCompany = () => {
       formPayLoad.append("name",companiesData.name);
       formPayLoad.append("about",companiesData.about);
       formPayLoad.append("logo",companiesData.logo);
-      const {data} = await axios.post('http://localhost:4000/company/add',formPayLoad);
+      const {data} = await axios.post(`${BASE_URL}/company/add`,formPayLoad);
       if(data.success){
         toast.success(data.message);
         navigate('/recruiter');

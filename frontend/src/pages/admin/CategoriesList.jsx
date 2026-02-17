@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const CategoriesList = () => {
   const {categoriesData,setCategoriesData,axios} = useContext(AppContext);
     const handleDelete = async (id)=>{
       try{
-    const {data} = await axios.delete(`http://localhost:4000/category/delete/${id}`);
+    const {data} = await axios.delete(`${BASE_URL}/category/delete/${id}`);
     if(data.success){
       const filteredCategories = categoriesData.filter((category)=>category._id!=id);
       setCategoriesData(filteredCategories);
@@ -39,7 +39,7 @@ const CategoriesList = () => {
               categoriesData.map((category)=>(
                 <tr key={category._id} className='hover:bg-gray-50'>
                   <td className='py-3 px-4 border-b'>
-                    <img src={`http://localhost:4000/uploads/${category.logo}`} alt="categoryIcon" className='w-12 h-12 rounded object-cover border'/>
+                    <img src={`${BASE_URL}/uploads/${category.logo}`} alt="categoryIcon" className='w-12 h-12 rounded object-cover border'/>
                   </td>
                   <td>
                     <p className='py-3 px-4  font-medium'>{category.name}</p>
